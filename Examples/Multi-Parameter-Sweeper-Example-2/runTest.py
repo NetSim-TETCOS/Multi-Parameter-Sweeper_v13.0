@@ -5,7 +5,7 @@ import sys
 import os
 
 
-NETSIM_PATH="C:\\Users\\Ranveer\\Documents\\NetSim_13.0.22_64_std_default\\bin\\bin_x64"
+NETSIM_PATH="C:\\Users\\HP\\Documents\\NetSim_13.0.26_64_std_default\\bin\\bin_x64"
 os.environ['NETSIM_AUTO'] = '1'
 
 if not os.path.exists('IOPath'):
@@ -60,38 +60,51 @@ for i in bandwidth:
             if(os.path.isfile("Configuration.netsim")):
                 shutil.copy("Configuration.netsim","IOPath\Configuration.netsim")
 
-            cmd=NETSIM_PATH+"\\NetSimcore.exe -apppath "+NETSIM_PATH+" -iopath IOPath -license 5053@192.168.0.9"
+            cmd=NETSIM_PATH+"\\NetSimcore.exe -apppath "+NETSIM_PATH+" -iopath IOPath -license "+"\"C:\\Program Files\\NetSim\\Standard_v13_0\\bin\"" 
             os.system(cmd)
             #print(cmd)
 
             if(os.path.isfile("IOPath\Metrics.xml")):
                 shutil.copy("IOPath\Metrics.xml","Metrics.xml")        
-
+            
+            #Number of Script files i.e Number of Output parameters to be read from Metrics.xml
+            #If only one output parameter is to be read only one Script text file with name Script.txt to be provided
+            #If more than one output parameter is to be read, multiple Script text file with name Script1.txt, Script2.txt,...
+            #...,Scriptn.txt to be provided
+            OUTPUT_PARAM_COUNT=2;
+            
             if(os.path.isfile("Metrics.xml")):
+                #Write the value of the variable parameters in the current iteration to the result log
                 csvfile = open("result.csv", 'a')
-                csvfile.write('\n'+str(i)+','+str(j)+','+str(z)+','+str(iat)+',')            
-                os.rename("Script1.txt","Script.txt");
+                csvfile.write('\n'+str(i)+','+str(j)+','+str(z)+','+str(iat)+',')    
                 csvfile.close()
-                os.system("MetricsReader.exe result.csv")
-                csvfile = open("result.csv", 'a')
-                csvfile.write(',')
-                csvfile.close()
-                os.rename("Script.txt","Script1.txt");
-                os.rename("Script2.txt","Script.txt");
-                os.system("MetricsReader.exe result.csv")
-                os.rename("Script.txt","Script2.txt");
-
+                
+                if(OUTPUT_PARAM_COUNT==1):
+                    #Call the MetricsReader.exe passing the name of the output log file for updating the log based on script.txt
+                    os.system("MetricsReader.exe result.csv")                
+                else:
+                    for n in range(1,OUTPUT_PARAM_COUNT+1,1):
+                        os.rename("Script"+str(n)+".txt","Script.txt");
+                        os.system("MetricsReader.exe result.csv")
+                        csvfile = open("result.csv", 'a')
+                        csvfile.write(',')
+                        csvfile.close()
+                        os.rename("Script.txt","Script"+str(n)+".txt");          
             else:
                 csvfile.write('\n'+str(i)+','+str(j)+','+str(iat)+','+'crash'+','+'crash'+',')
                 csvfile.close()
             
+            #Name of the Output folder to which the results will be saved
+            OUTPUT_PATH='Data\\Output_'+str(i)+'_'+str(j)+'_'+str(z);
+            
+            if not os.path.exists(OUTPUT_PATH):
+                os.makedirs(OUTPUT_PATH)
 
-            if(os.path.isfile("Configuration.netsim")):
-                shutil.copy("Configuration.netsim", "Data\configuration_"+str(i)\
-                +'_'+str(j)+'_'+str(z)+".netsim")
-
-            if(os.path.isfile("Metrics.xml")):
-                shutil.copy("Metrics.xml", "Data\metrics_"+str(i)+'_'+str(j)+'_'+str(z)+".xml")
+            
+            #Create a copy of all files that is present in IOPATH to the desired output location
+            files_names = os.listdir('IOPATH')
+            for file_name in files_names:
+                shutil.move(os.path.join('IOPATH', file_name),OUTPUT_PATH)
 
             if(os.path.isfile("Configuration.netsim")):
                 os.remove("Configuration.netsim")
