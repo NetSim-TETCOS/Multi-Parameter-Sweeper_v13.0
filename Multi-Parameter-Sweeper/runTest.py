@@ -1,3 +1,5 @@
+import subprocess
+import shlex
 import random
 import shutil
 import math
@@ -61,8 +63,8 @@ for i in range(250, 401, 50):
         shutil.copy("Configuration.netsim","IOPath\Configuration.netsim")
 
     #Run NetSim via CLI mode by passing the apppath iopath and license information to the NetSimCore.exe
-    cmd=NETSIM_PATH+"\\NetSimcore.exe -apppath "+NETSIM_PATH+" -iopath IOPath -license 5053@127.0.0.1"
-    os.system(cmd)
+    cmd="\""+NETSIM_PATH+"\\NetSimcore.exe\" -apppath \""+NETSIM_PATH+"\" -iopath IOPath -license "+"\"C:\\Program Files\\NetSim\\Standard_v13_0\\bin\""
+    subprocess.run(shlex.split(cmd))
     #print(cmd)
 
     #Create a copy of the output Metrics.xml file for writing the result log
@@ -78,7 +80,7 @@ for i in range(250, 401, 50):
     if(os.path.isfile("Metrics.xml")):
         #Write the value of the variable parameters in the current iteration to the result log
         csvfile = open("result.csv", 'a')
-        csvfile.write('\n'+str(i)+','+str(j)+','+str(z)+','+str(iat)+',')    
+        csvfile.write('\n'+str(i)+',')    
         csvfile.close()
         
         if(OUTPUT_PARAM_COUNT==1):
@@ -95,21 +97,26 @@ for i in range(250, 401, 50):
 
     else:
         #Update the output Metric as crash if Metrics.xml file is missing
+        csvfile = open("result.csv", 'a')
         csvfile.write('\n'+str(i)+','+'crash'+',')
         csvfile.close()
 
-    #Create a copy of the Configuration.netsim file appending the value of the variable parameters used in the current iteration
-    if(os.path.isfile("Configuration.netsim")):
-        shutil.copy("Configuration.netsim", "Data\configuration_"+str(i)+".netsim")
+    #Name of the Output folder to which the results will be saved
+    OUTPUT_PATH='Data\\Output_'+str(i);
+    
+    if not os.path.exists(OUTPUT_PATH):
+        os.makedirs(OUTPUT_PATH)
 
-    #Create a copy of the Metrics.xml file appending the value of the variable parameters used in the current iteration
-    if(os.path.isfile("Metrics.xml")):
-        shutil.copy("Metrics.xml", "Data\metrics_"+str(i)+".xml")
+    
+    #Create a copy of all files that is present in IOPATH to the desired output location
+    files_names = os.listdir('IOPATH')
+    for file_name in files_names:
+        shutil.move(os.path.join('IOPATH', file_name),OUTPUT_PATH)
 
     #Delete Configuration.netsim file created during the last iteration
     if(os.path.isfile("Configuration.netsim")):
         os.remove("Configuration.netsim")
 
-     #Delete Metrics.xml file created during the last iteration
+    #Delete Metrics.xml file created during the last iteration
     if(os.path.isfile("Metrics.xml")):
         os.remove("Metrics.xml")

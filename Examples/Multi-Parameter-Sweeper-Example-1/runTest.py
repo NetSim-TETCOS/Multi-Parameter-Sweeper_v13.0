@@ -1,3 +1,5 @@
+import subprocess
+import shlex
 import random
 import shutil
 import math
@@ -61,8 +63,8 @@ for i in range(250, 401, 50):
         shutil.copy("Configuration.netsim","IOPath\Configuration.netsim")
 
     #Run NetSim via CLI mode by passing the apppath iopath and license information to the NetSimCore.exe
-    cmd=NETSIM_PATH+"\\NetSimcore.exe -apppath "+NETSIM_PATH+" -iopath IOPath -license "+"\"C:\\Program Files\\NetSim\\Standard_v13_0\\bin\"" 
-    os.system(cmd)
+    cmd="\""+NETSIM_PATH+"\\NetSimcore.exe\" -apppath \""+NETSIM_PATH+"\" -iopath IOPath -license "+"\"C:\\Program Files\\NetSim\\Standard_v13_0\\bin\"" 
+    subprocess.run(shlex.split(cmd))
     #print(cmd)
 
     #Create a copy of the output Metrics.xml file for writing the result log
@@ -95,6 +97,7 @@ for i in range(250, 401, 50):
                 os.rename("Script.txt","Script"+str(n)+".txt");   
     else:
         #Update the output Metric as crash if Metrics.xml file is missing
+        csvfile = open("result.csv", 'a')
         csvfile.write('\n'+str(i)+','+'crash'+',')
         csvfile.close()
         
