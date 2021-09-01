@@ -1,0 +1,90 @@
+Gathering license information
+Server = C:\Program Files\NetSim\Pro_v13_0\bin	Roam Enable(1)/Disable(0)=0
+Product name = netsim
+Version type = pro
+Lock type = rlm_hw
+Version = 13.0
+Check license for...
+	netsim_pro_1 or netsim_pro_all or netsim_pro or netsim_pro_inw
+	netsim_pro_2 or netsim_pro_all or netsim_pro or netsim_pro_legacy
+	netsim_pro_3 or netsim_pro_all or netsim_pro or netsim_pro_advrs
+	netsim_pro_4 or netsim_pro_all or netsim_pro or netsim_pro_advw
+	netsim_pro_5 or netsim_pro_all or netsim_pro or netsim_pro_sdn
+	netsim_pro_6 or netsim_pro_all or netsim_pro or netsim_pro_iot
+	netsim_pro_7 or netsim_pro_all or netsim_pro or netsim_pro_crn
+	netsim_pro_8 or netsim_pro_all or netsim_pro or netsim_pro_lte
+	netsim_pro_9 or netsim_pro_all or  or netsim_pro_vanet
+	netsim_pro_10 or netsim_pro_all or  or netsim_pro_5g
+	netsim_pro_11 or netsim_pro_all or  or netsim_pro_sat
+	netsim_emulator or NA or NA or netsim_pro_NA
+	netsim_pro_101 or netsim_pro_all or netsim_pro or netsim_pro_milradio
+	netsim_pro_104 or NA or NA or netsim_pro_extra
+called for 0, 16584
+called for 1, 16688
+called for 2, 11304
+called for 3, 2052
+called for 4, 11772
+called for 5, 17076
+called for 6, 16312
+called for 7, 13412
+called for 8, 13280
+called for 9, 4956
+called for 10, 7524
+called for 12, 3940
+called for 13, 12384
+Waiting for license Manager to complete..
+Thread is called for component 0. Waiting..
+called for 16, 14284
+NetSim Component ID = 12, License status = 1 (Success)
+NetSim Component ID = 5, Unable to get license.
+Error Message - License server does not support this product (-18)
+NetSim Component ID = 3, Unable to get license.
+Error Message - License server does not support this product (-18)
+NetSim Component ID = 13, Unable to get license.
+Error Message - License server does not support this product (-18)
+NetSim Component ID = 0, Unable to get license.
+Error Message - License server does not support this product (-18)
+Closing thread for component 0..
+Thread is called for component 1. Waiting..
+NetSim Component ID = 16, Unable to get license.
+Error Message - License server does not support this product (-18)
+NetSim Component ID = 1, Unable to get license.
+Error Message - License server does not support this product (-18)
+Closing thread for component 1..
+Thread is called for component 2. Waiting..
+NetSim Component ID = 2, Unable to get license.
+Error Message - License server does not support this product (-18)
+Closing thread for component 2..
+Thread is called for component 3. Waiting..
+Closing thread for component 3..
+NetSim Component ID = 7, Unable to get license.
+Error Message - License server does not support this product (-18)
+Thread is called for component 4. Waiting..
+NetSim Component ID = 4, Unable to get license.
+Error Message - License server does not support this product (-18)
+Closing thread for component 4..
+Thread is called for component 5. Waiting..
+Closing thread for component 5..
+Thread is called for component 6. Waiting..
+NetSim Component ID = 6, Unable to get license.
+Error Message - License server does not support this product (-18)
+Closing thread for component 6..
+Thread is called for component 7. Waiting..
+Closing thread for component 7..
+Thread is called for component 8. Waiting..
+Closing thread for component 8..
+Thread is called for component 9. Waiting..
+Closing thread for component 9..
+Thread is called for component 10. Waiting..
+Closing thread for component 10..
+No thread for component 11..
+Thread is called for component 12. Waiting..
+Closing thread for component 12..
+Thread is called for component 13. Waiting..
+Closing thread for component 13..
+No thread for component 14..
+No thread for component 15..
+Thread is called for component 16. Waiting..
+Closing thread for component 16..
+
+Time taken is 9531
